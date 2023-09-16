@@ -6,6 +6,10 @@ __pycache__/
 # Dataset
 *.parquet
 
+# Word2Vec
+*.model
+word2vec.model.*
+
 # C extensions
 *.so
 
