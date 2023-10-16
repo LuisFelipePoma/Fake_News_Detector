@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#node
+package-lock.json
+
 # Dataset
 *.parquet
 
