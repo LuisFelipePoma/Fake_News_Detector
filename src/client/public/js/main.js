@@ -133,6 +133,6 @@ function resample_single (canvas, width, height, resize_canvas) {
 //Cargar modelo
 ;(async () => {
   console.log('Cargando modelo...')
-  modelo = await tf.loadLayersModel('model/carpeta_out/model.json')
+  modelo = await tf.loadLayersModel('../model/carpeta_out/model.json')
   console.log('Modelo cargado...')
 })()
