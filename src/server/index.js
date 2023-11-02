@@ -6,29 +6,21 @@ import cors from 'cors'
 const app = express()
 const PORT = 8000
 
-app.use(express.json())
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true
-}));
-
-// app.use(cors())
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       const ACCEPTED_ORIGINS = [
-//         'http://localhost:5173/',
-//         'http://localhost:3000/',
-//         'https://ia-project-gules.vercel.app/'
-//       ]
-//       if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-//         return callback(null, true)
-//       }
-//       return callback(new Error('Not allowed by CORS'))
-//     }
-//   })
-// )
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const ACCEPTED_ORIGINS = [
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://ia-project-gules.vercel.app'
+      ]
+      if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+        return callback(null, true)
+      }
+      return callback(new Error('Not allowed by CORS'))
+    }
+  })
+)
 
 app.get('/', (req, res) => {
   res.send('Hello World')
