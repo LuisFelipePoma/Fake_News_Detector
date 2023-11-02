@@ -1,4 +1,4 @@
-const URL_API = 'https://ia-project-backend.vercel.app/'
+const URL_API = 'https://ia-project-backend.vercel.app'
 // const URL_API = 'http://localhost:8000'
 
 // Función para realizar la consulta a la API
