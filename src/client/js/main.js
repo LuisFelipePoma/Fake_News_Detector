@@ -1,10 +1,12 @@
-const URL_API = 'https://ia-project-backend.vercel.app'
+
+const URL_API = import.meta.env.VITE_BACK_URL
+// const URL_API = 'https://ia-project-backend.vercel.app'
 // const URL_API = 'http://localhost:8000'
 
 // Función para realizar la consulta a la API
 async function fetchDataFromAPI () {
   try {
-    fetch(`${URL_API}/scrape`)
+    fetch(`${URL_API}scrape`)
       .then(res => res.json())
       .then(news => {
 				document.querySelector(".api").innerHTML=
