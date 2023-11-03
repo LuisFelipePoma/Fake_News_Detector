@@ -2,26 +2,41 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="img/png" sizes="32x32" href="img/upc_logo_32x32.png">
-	<link rel="icon" type="img/png" sizes="16x16" href="img/upc_logo_16x16.png">
-	<link rel="stylesheet" href="css/style.css">
-	<title>Números</title>
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" href="assets/img/" />
+	<link rel="stylesheet" href="assets/css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cambay">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<title>Vera</title>
 </head>
 
 <body>
 	<header>
-		<img src="img/upc_logo.png" alt="" width="80" height="80">
-		<h1>Detector de Fake News</h1>
-		
+		<h1>Vera</h1>
+		<img class="badge" alt="TruthBadge" src="assets/img/badge.webp">
 	</header>
-	<main>
+	<section class="animSec">
+		<p>New AI tool detects fake news with 99% accuracy</p>
+	</section>
+	<section class="searcher">
+		<form action="/" method="post">
+			<input type="text" name="search" placeholder="Insert a link to check it's veracity..." value="google.com">
+			<button type="submit" class="submitBtn">
+				<i class="material-icons">check_circle</i>
+			</button>
+		</form>
+	</section>
+	<section class="results">
+		<h2>92%</h2>
+		<h2>This news is fake!</h2>
+	</section>
+	<section>
 		<div class="api">Test</div>
-	</main>
+	</section>
 
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="assets/js/main.js"></script>
 </body>
 
 </html>
