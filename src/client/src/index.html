@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<link rel="shortcut icon" href="assets/img/" />
+	<!-- <link rel="shortcut icon" href="assets/img/" /> -->
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cambay">
@@ -20,7 +20,7 @@
 		<p>New AI tool detects fake news with 99% accuracy</p>
 	</section>
 	<section class="searcher">
-		<form action="/" method="post">
+		<form action="javascript:void(0);" id="myForm">
 			<input type="text" name="search" placeholder="Insert a link to check it's veracity..." value="google.com">
 			<button type="submit" class="submitBtn">
 				<i class="material-icons">check_circle</i>
@@ -36,7 +36,7 @@
 	</section>
 
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" defer></script>
-	<script type="module" src="js/main.js" defer></script>
+	<script type="module" src="main.js" defer></script>
 </body>
 
 </html>
