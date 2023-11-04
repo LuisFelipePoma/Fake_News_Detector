@@ -1,9 +1,6 @@
 // es6 module
 import { extract } from '@extractus/article-extractor'
-
 import express from 'express'
-import axios from 'axios'
-import cheerio from 'cheerio'
 import cors from 'cors'
 
 const app = express()
@@ -15,14 +12,18 @@ app.get('/', (req, res) => {
   res.send('APIS for Web Scrapping!!!')
 })
 
-
 app.get('/ext', async (req, res) => {
-  const url = req.query.url
-  const newsUrl = url
-  const article = await extract(newsUrl)
-  res.json(article)
+  const query = req.query.url
+  const decodedValue = decodeURIComponent(query)
+  const items = decodedValue.split(',')
+  const news = []
+  for (let item of items) {
+    const _new = await extract(item)
+    news.push(_new)
+  }
+  res.json(news)
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server is running on port ${PORT}`)
 })

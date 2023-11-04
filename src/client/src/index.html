@@ -3,40 +3,44 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<!-- <link rel="shortcut icon" href="assets/img/" /> -->
+	<link rel="shortcut icon" href="assets/img/" />
 	<link rel="stylesheet" href="assets/css/style.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Vera</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cambay">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<title>Vera</title>
 </head>
 
 <body>
 	<header>
 		<h1>Vera</h1>
-		<img class="badge" alt="TruthBadge" src="assets/img/badge.webp">
 	</header>
-	<section class="animSec">
-		<p>New AI tool detects fake news with 99% accuracy</p>
-	</section>
-	<section class="searcher">
-		<form action="javascript:void(0);" id="myForm">
-			<input type="text" name="search" placeholder="Insert a link to check it's veracity..." value="google.com">
-			<button type="submit" class="submitBtn">
-				<i class="material-icons">check_circle</i>
-			</button>
-		</form>
-	</section>
-	<section class="results">
-		<h2>92%</h2>
-		<h2>This news is fake!</h2>
-	</section>
-	<section>
-		<div class="api">Test</div>
-	</section>
-
+	<main>
+		<section class="animSec">
+			<p>Determine a news' veracity with AI just by pasting its link!</p>
+		</section>
+		<section class="searcher">
+			<form action="javascript:void(0);" id="myForm">
+				<input type="text" name="search" placeholder="Insert a news' link to check it's veracity...">
+				<button type="submit" class="submitBtn">
+					<i class="material-icons">check_circle</i>
+				</button>
+			</form>
+		</section>
+		<section class="results">
+			<div class="loading-animation"><div></div><div></div></div>
+			<!-- <article class="newsCard">
+				<img src="assets/img/test.jpg" alt="thumbnail">
+				<h1>New AI tool detects fake news with 99% accuracy</h1>
+				<p>Fake</p>
+				<h2>20%</h2>
+			</article> -->
+		</section>
+	</main>
+	<div class="api">Test</div>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" defer></script>
 	<script type="module" src="main.js" defer></script>
 </body>
+
 
 </html>
