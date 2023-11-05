@@ -1,19 +1,17 @@
 // es6 module
 import { extract } from '@extractus/article-extractor'
-import express from 'express'
+import express, { json } from 'express'
 import cors from 'cors'
-import * as tf from '@tensorflow/tfjs'
 import { getLinksPage } from './scrap/scrap.js'
 
 // CONST CACHE
 let cacheRequest = new Map()
 
 const app = express()
-const PORT = 8000
-
+const PORT = process.env.PORT || 8000
 
 app.use(cors())
-app.use(express.json())
+app.use(json())
 
 app.get('/', (req, res) => {
   res.send('APIS for Web Scrapping!!!')
@@ -25,7 +23,6 @@ app.post('/scrap', async (req, res) => {
 
   const promises = items.map(async item => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
-    console.log(`creating item ${item}`)
     const _new = await extract(item)
     const body = {
       title: _new.title ? _new.title : 'No title',
@@ -47,12 +44,13 @@ app.get('/cards/:key', async (req, res) => {
   const items = await getLinksPage(key)
   const promises = items.map(async item => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
-    console.log(`creating item ${item}`)
     const _new = await extract(item)
     const body = {
-      title: _new.title,
-      image: _new.image,
-      url: _new.url
+      title: _new.title ? _new.title : 'No title',
+      image: _new.image
+        ? _new.image
+        : 'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
+      url: _new.url ? _new.url : item
     }
     cacheRequest.set(item, body)
     return body

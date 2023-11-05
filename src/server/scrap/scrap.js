@@ -1,34 +1,20 @@
-// import puppeteer from 'puppeteer'
-// import puppeteer from 'puppeteer'
-import puppeteer from 'puppeteer-core'
-import chrome from 'chrome-aws-lambda'
+import chromium from 'playwright-aws-lambda'
+// const { chromium, launch } = pkg
+// import { launch } from 'playwright-aws-lambda';
+
 import { PAGES_NEWS } from '../consts/const.js'
-
-// let options = {}
-
-// if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-const options = {
-  args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
-  defaultViewport: chrome.defaultViewport,
-  executablePath: await chrome.executablePath,
-  headless: true,
-  ignoreHTTPSErrors: true
-}
-// }
 
 const cacheLinks = new Map()
 
 async function scrapeLinks (url, keyword) {
-  let browser = await puppeteer.launch(options)
+  const browser = await chromium.launchChromium({ headless: true }) // Cambia 'chromium' por el navegador de tu elección (firefox, webkit, etc.)
 
   const page = await browser.newPage()
   await page.goto(url)
 
-  // Utiliza el método page.evaluate para ejecutar JavaScript en la página
   const links = await page.evaluate(keyword => {
-    const linkElements = Array.from(document.querySelectorAll('a')) // Obtén todos los elementos 'a' (enlaces)
+    const linkElements = Array.from(document.querySelectorAll('a'))
 
-    // Filtra los enlaces basados en condiciones complejas
     const filteredLinks = linkElements.filter(link => {
       const href = link.href
       // Agrega tus condiciones de filtrado aquí
@@ -40,8 +26,8 @@ async function scrapeLinks (url, keyword) {
       )
     })
 
-    return filteredLinks.map(link => link.href) // Extrae los atributos href de los enlaces filtrados
-  }, keyword) // Pasa "keyword" como argumento a la función de evaluación
+    return filteredLinks.map(link => link.href)
+  }, keyword)
 
   await browser.close()
 
