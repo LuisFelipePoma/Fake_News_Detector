@@ -1,13 +1,22 @@
 import puppeteer from 'puppeteer'
 import { PAGES_NEWS } from '../consts/const.js'
+require('dotenv').config()
 
 const cacheLinks = new Map()
 
 async function scrapeLinks (url, keyword) {
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox'],
-		executablePath: process.env.PATH_PUP
+    args: [
+      '--disable-setuid-sandbox',
+      '--no-sandbox',
+      '--single-process',
+      '--no-zygote'
+    ],
+    executablePath:
+      process.env.NODE_ENV === 'production'
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath()
   })
 
   const page = await browser.newPage()
