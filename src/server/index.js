@@ -2,16 +2,13 @@
 import { extract } from '@extractus/article-extractor'
 import express, { json } from 'express'
 import cors from 'cors'
-import { getLinksPage, catchLinks } from './scrap/scrap.js'
+import { getLinksPage} from './scrap/scrap.js'
 
 // CONST CACHE
 let cacheRequest = new Map()
 const PORT = process.env.PORT || 8000
 
 const app = express()
-console.log('catch')
-await catchLinks()
-console.log('End catch')
 
 app.use(cors())
 app.use(json())

@@ -5,31 +5,32 @@ import { PAGES_NEWS } from '../consts/const.js'
 const cacheLinks = new Map()
 
 async function scrapeLinks (url, keyword) {
-  const browser = await chromium.launchChromium({ headless: true }) // Cambia 'chromium' por el navegador de tu elección (firefox, webkit, etc.)
+  const browser = await chromium.launchChromium({ headless: true })
 
   const page = await browser.newPage()
   await page.goto(url)
 
-  const links = await page.evaluate(keyword => {
-    const linkElements = Array.from(document.querySelectorAll('a'))
+  try {
+    const links = await page.evaluate(keyword => {
+      const linkElements = Array.from(document.querySelectorAll('a'))
+      return linkElements
+        .map(link => link.href)
+        .filter(
+          href =>
+            href.includes(keyword) ||
+            href.includes('.html') ||
+            href.includes('0') ||
+            href.includes('article')
+        )
+    }, keyword)
 
-    const filteredLinks = linkElements.filter(link => {
-      const href = link.href
-      // Agrega tus condiciones de filtrado aquí
-      return (
-        href.includes(keyword) ||
-        href.includes('.html') ||
-        href.includes('0') ||
-        href.includes('article')
-      )
-    })
-
-    return filteredLinks.map(link => link.href)
-  }, keyword)
-
-  await browser.close()
-
-  return links
+    return links
+  } catch (error) {
+    console.error('Error during scraping:', error)
+    return []
+  } finally {
+    await browser.close()
+  }
 }
 
 // Función para mezclar aleatoriamente un arreglo (algoritmo de Fisher-Yates)
@@ -55,19 +56,13 @@ export async function getLinksPage (keyword) {
 
   try {
     links = await scrapeLinks(page, keyword)
+
+    // Aquí, si tienes una gran cantidad de enlaces, puedes paginar o cargar enlaces de manera diferida
+
     cacheLinks.set(page, links)
     return randomLinks(links)
   } catch (error) {
     console.error('Error:', error)
-    return [] // En caso de error, retorna una lista vacía o maneja el error de la manera que desees.
+    return []
   }
 }
-
-// export async function catchLinks () {
-//   // Código asincrónico aquí
-//   for (let i = 0; i < PAGES_NEWS.length; i++) {
-//     const answ = await getLinksPage('article')
-//   }
-//   // Realiza más operaciones después de que la función asincrónica se haya completado
-//   console.log('La operación asincrónica ha terminado con resultado')
-// }
