@@ -5,11 +5,12 @@ import cors from 'cors'
 import * as tf from '@tensorflow/tfjs'
 import { getLinksPage } from './scrap/scrap.js'
 
+// CONST CACHE
+let cacheRequest = new Map()
+
 const app = express()
 const PORT = 8000
 
-// CONST CACHE
-let cacheRequest = new Map()
 
 app.use(cors())
 app.use(express.json())

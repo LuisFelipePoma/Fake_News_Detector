@@ -1,6 +1,7 @@
 import puppeteer from 'puppeteer'
 import { PAGES_NEWS } from '../consts/const.js'
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
 const cacheLinks = new Map()
 
