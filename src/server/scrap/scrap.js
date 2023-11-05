@@ -1,19 +1,25 @@
-import puppeteer from 'puppeteer'
+// import puppeteer from 'puppeteer'
+// import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
+import chrome from 'chrome-aws-lambda'
 import { PAGES_NEWS } from '../consts/const.js'
+
+// let options = {}
+
+// if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+const options = {
+  args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+  defaultViewport: chrome.defaultViewport,
+  executablePath: await chrome.executablePath,
+  headless: true,
+  ignoreHTTPSErrors: true
+}
+// }
 
 const cacheLinks = new Map()
 
 async function scrapeLinks (url, keyword) {
-  const browser = await puppeteer.launch({
-    headless: 'new',
-    args: [
-      '--disable-setuid-sandbox',
-      '--no-sandbox',
-      '--single-process',
-      '--no-zygote'
-    ],
-    executablePath: puppeteer.executablePath()
-  })
+  let browser = await puppeteer.launch(options)
 
   const page = await browser.newPage()
   await page.goto(url)
