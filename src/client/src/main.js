@@ -31,12 +31,15 @@ function handleUserNewFetch (url) {
   // Call function to fetch data from API
   fetchDataFromAPI([url])
     .then(res => res.json())
-    .then(news => {
-      document.querySelector('.api').innerHTML = `
-				<h1>${news[0].title}<h1>
-				<h2>${news[0].description}<h2>
-				<p>${news[0].content}<p>
-			`
+    .then(item => {
+      $resultsCards.innerHTML = `
+			<article class="newsFake newsCard">
+				<img src="${item[0].image}" alt="${item[0].title}">
+				<h3>${item[0].title}</h3>
+				<a href="${item[0].url}" target="_blank">Read more...</a>
+				<h2>20%</h2>
+			</article>
+		`
     })
 }
 // ----------> HANDLE APP PREDICTIONS NEWS CARD

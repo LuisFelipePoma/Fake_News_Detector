@@ -12,9 +12,13 @@ header {
 }
 
 header h1 {
-	font-size: 4rem;
-	color: #24A19C;
 	margin: 0;
+	& a {
+		font-size: 4rem;
+		text-decoration: none;
+		color: #24A19C;
+		user-select: none;
+	}
 }
 
 
@@ -37,7 +41,7 @@ header h1 {
 	color: #325288;
 	text-align: center;
 	margin: 0 auto;
-
+	user-select: none;
 	animation:
 		green_blue 2s infinite alternate;
 }
@@ -64,7 +68,7 @@ form {
 	align-items: center;
 }
 
-form input[type="text"] {
+form input[type="url"] {
 	flex: 1;
 	margin-right: 1rem;
 	height: 3rem;
@@ -77,7 +81,7 @@ form input[type="text"] {
 }
 
 /* form input[type="text"] when click change the border to pink */
-form input[type="text"]:focus {
+form input[type="url"]:focus {
 	outline: none;
 	border: 2px solid #24A19C;
 	transition: 0.5s;
@@ -109,13 +113,22 @@ form input[type="text"]:focus {
 
 /* Styles for Card New */
 .results {
-	max-width: 90%;
+	max-width: 100%;
+	min-height: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(2, minmax(250px, 500px));
 	grid-template-rows: auto;
 	box-sizing: border-box;
+	place-content: center;
 	gap: 3vh 1.5vw;
-	margin: 0 auto;
+	padding: 0 1em;
+}
+
+@media (width < 720px) {
+	.results {
+		grid-template-columns: repeat(1, 1fr);
+		;
+	}
 }
 
 .newsCard {
@@ -155,6 +168,7 @@ form input[type="text"]:focus {
 	/* inset: 0; */
 	/* margin: auto; */
 	content: "F A K E";
+	border-radius: 10px 0 10px 0;
 	display: inline;
 	size: 5rem;
 	font-weight: 700;
@@ -209,33 +223,37 @@ form input[type="text"]:focus {
 .loading-animation div:nth-child(2) {
 	animation-delay: -0.5s;
 }
+
 @keyframes loading {
 	0% {
-	  top: 36px;
-	  left: 36px;
-	  width: 0;
-	  height: 0;
-	  opacity: 0;
+		top: 36px;
+		left: 36px;
+		width: 0;
+		height: 0;
+		opacity: 0;
 	}
+
 	4.9% {
-	  top: 36px;
-	  left: 36px;
-	  width: 0;
-	  height: 0;
-	  opacity: 0;
+		top: 36px;
+		left: 36px;
+		width: 0;
+		height: 0;
+		opacity: 0;
 	}
+
 	5% {
-	  top: 36px;
-	  left: 36px;
-	  width: 0;
-	  height: 0;
-	  opacity: 1;
+		top: 36px;
+		left: 36px;
+		width: 0;
+		height: 0;
+		opacity: 1;
 	}
+
 	100% {
-	  top: 0px;
-	  left: 0px;
-	  width: 72px;
-	  height: 72px;
-	  opacity: 0;
+		top: 0px;
+		left: 0px;
+		width: 72px;
+		height: 72px;
+		opacity: 0;
 	}
-  }
+}

@@ -18,6 +18,7 @@ word2vec.model.*
 
 # C extensions
 *.so
+*.http
 
 # Distribution / packaging
 .Python

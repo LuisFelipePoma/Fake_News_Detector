@@ -13,15 +13,15 @@
 
 <body>
 	<header>
-		<h1>Vera</h1>
+		<h1><a href="/">Vera</a></h1>
 	</header>
 	<main>
 		<section class="animSec">
 			<p>Determine a news' veracity with AI just by pasting its link!</p>
 		</section>
 		<section class="searcher">
-			<form action="javascript:void(0);" id="myForm">
-				<input type="text" name="search" placeholder="Insert a news' link to check it's veracity...">
+			<form action="javascript:void(0);" id="myForm" >
+				<input type="url" name="search" placeholder="Insert a news' link to check it's veracity..." required>
 				<button type="submit" class="submitBtn">
 					<i class="material-icons">check_circle</i>
 				</button>
@@ -37,7 +37,6 @@
 			</article> -->
 		</section>
 	</main>
-	<div class="api">Test</div>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" defer></script>
 	<script type="module" src="main.js" defer></script>
 </body>
