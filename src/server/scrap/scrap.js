@@ -71,7 +71,7 @@ export async function getLinksPage (keyword) {
 (async () => {
   // Código asincrónico aquí
 	for(let i = 0;i< PAGES_NEWS.length;i++){
-		getLinksPage("article")
+		await getLinksPage("article")
 	} 
   // Realiza más operaciones después de que la función asincrónica se haya completado
   console.log("La operación asincrónica ha terminado con resultado");
