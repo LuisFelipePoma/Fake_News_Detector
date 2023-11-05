@@ -1,5 +1,4 @@
-import { fetchDataFromAPI } from './services/services'
-import { NEWS } from './const/urls'
+import { fetchCardsAPI, fetchDataFromAPI } from './services/services'
 
 // SELECTORS-----|
 
@@ -34,7 +33,7 @@ function handleUserNewFetch (url) {
     .then(res => res.json())
     .then(item => {
       $resultsCards.innerHTML = `
-			<article class="newsFake newsCard">
+			<article class="newsFake newsCard predictionUser">
 				<img src="${item[0].image}" alt="${item[0].title}">
 				<h3>${item[0].title}</h3>
 				<a href="${item[0].url}" target="_blank">Read more...</a>
@@ -46,9 +45,9 @@ function handleUserNewFetch (url) {
 // ----------> HANDLE APP PREDICTIONS NEWS CARD
 
 // Handle when load cards news predictions
-function handleCardsNewFetch (urls) {
+function handleCardsNewFetch () {
   $loadingAnimation.style.display = 'block'
-  fetchDataFromAPI(urls)
+  fetchCardsAPI('politics')
     .then(res => res.json())
     .then(news => {
       $resultsCards.appendChild(createCards(news))
@@ -78,5 +77,5 @@ function createCards (news) {
 ;(() => {
   createFormGetData() // Create form event to get data
   // $loadingAnimation.style.display = 'block';
-  handleCardsNewFetch(NEWS)
+  handleCardsNewFetch()
 })()

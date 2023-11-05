@@ -13,6 +13,7 @@ header {
 
 header h1 {
 	margin: 0;
+
 	& a {
 		font-size: 4rem;
 		text-decoration: none;
@@ -123,6 +124,13 @@ form input[type="url"]:focus {
 	gap: 3vh 1.5vw;
 	padding: 0 1em;
 }
+
+.predictionUser {
+	grid-column: 1/-1;
+	align-self: center;
+	justify-self: center;
+}
+
 
 @media (width < 720px) {
 	.results {
