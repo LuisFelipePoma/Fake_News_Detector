@@ -3,9 +3,8 @@ import { PAGES_NEWS } from '../consts/const.js'
 
 const cacheLinks = new Map()
 
-
 async function scrapeLinks (url, keyword) {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({ headless: 'new' })
   const page = await browser.newPage()
   await page.goto(url)
 
@@ -63,4 +62,3 @@ export async function getLinksPage (keyword) {
     return [] // En caso de error, retorna una lista vacía o maneja el error de la manera que desees.
   }
 }
-
