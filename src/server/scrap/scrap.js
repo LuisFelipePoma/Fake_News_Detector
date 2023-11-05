@@ -5,9 +5,10 @@ const cacheLinks = new Map()
 
 async function scrapeLinks (url, keyword) {
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: true,
     args: ['--no-sandbox']
   })
+
   const page = await browser.newPage()
   await page.goto(url)
 
