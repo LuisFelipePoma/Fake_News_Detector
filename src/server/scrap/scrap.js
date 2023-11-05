@@ -63,11 +63,11 @@ export async function getLinksPage (keyword) {
   }
 }
 
-export async function catchLinks () {
-  // Código asincrónico aquí
-  for (let i = 0; i < PAGES_NEWS.length; i++) {
-    const answ = await getLinksPage('article')
-  }
-  // Realiza más operaciones después de que la función asincrónica se haya completado
-  console.log('La operación asincrónica ha terminado con resultado')
-}
+// export async function catchLinks () {
+//   // Código asincrónico aquí
+//   for (let i = 0; i < PAGES_NEWS.length; i++) {
+//     const answ = await getLinksPage('article')
+//   }
+//   // Realiza más operaciones después de que la función asincrónica se haya completado
+//   console.log('La operación asincrónica ha terminado con resultado')
+// }
