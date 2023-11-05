@@ -2,7 +2,7 @@
 import { extract } from '@extractus/article-extractor'
 import express, { json } from 'express'
 import cors from 'cors'
-import { getLinksPage} from './scrap/scrap.js'
+import { getLinksPage } from './scrap/scrap.js'
 
 // CONST CACHE
 let cacheRequest = new Map()
@@ -45,13 +45,20 @@ app.get('/cards/:key', async (req, res) => {
   const promises = items.map(async item => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     const _new = await extract(item)
-    const body = {
-      title: _new.title ? _new.title : 'No title',
-      image: _new.image
-        ? _new.image
-        : 'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
-      url: _new.url ? _new.url : '/'
-    }
+    const body = _new
+      ? {
+          title: _new.title ?? 'No title',
+          image:
+            _new.image ||
+            'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
+          url: _new.url || '/'
+        }
+      : {
+          title: 'No title',
+          image:
+            'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
+          url: '/'
+        }
     cacheRequest.set(item, body)
     return body
   })

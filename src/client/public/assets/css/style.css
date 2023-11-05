@@ -114,22 +114,13 @@ form input[type="url"]:focus {
 
 /* Styles for Card New */
 .results {
-	max-width: 100%;
-	min-height: 100%;
-	display: grid;
-	grid-template-columns: repeat(2, minmax(250px, 500px));
-	grid-template-rows: auto;
-	box-sizing: border-box;
-	place-content: center;
-	gap: 3vh 1.5vw;
-	padding: 0 1em;
+	margin-top: 6.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 4rem;
 }
 
-.predictionUser {
-	grid-column: 1/-1;
-	align-self: center;
-	justify-self: center;
-}
 
 
 @media (width < 720px) {
@@ -141,16 +132,10 @@ form input[type="url"]:focus {
 
 .newsCard {
 	background-color: #fff;
-	width: 100%;
-	height: 100%;
 	border-radius: 10px;
+	width: 40rem;
 	transition: 1s;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-	display: grid;
-	grid-template-rows: 250px minmax(100px, 1fr) auto;
-	gap: 1rem;
-	position: relative;
-
 }
 
 .newsCard> :not(img) {
@@ -159,38 +144,23 @@ form input[type="url"]:focus {
 
 
 .newsCard:hover {
-	transform: scale(1.05);
+	transform: scale(1.1);
 	transition: 0.5s;
 }
 
 .newsCard img {
 	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	margin: 0;
-	border-radius: 10px 10px 0 0;
-}
-
-.newsFake::after {
-	position: absolute;
-	/* inset: 0; */
-	/* margin: auto; */
-	content: "F A K E";
-	border-radius: 10px 0 10px 0;
-	display: inline;
-	size: 5rem;
-	font-weight: 700;
-	text-align: center;
-	color: white;
-	width: 100px;
-	height: 25px;
-	background-color: rgb(180, 29, 29);
+    height: 14rem;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
 }
 
 .newsCard h1 {
 	margin: 0;
 	padding: 0;
-	text-align: center;
+	text-align: left;
+	padding: 0 1em;
 }
 
 .newsCard h2 {
@@ -204,8 +174,10 @@ form input[type="url"]:focus {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	font-size: 3em;
-	font-weight: bold;
+	font-family: 'Rubik Moonrocks';
+	font-size: 4em;
+	/* font-weight: 900;	 */
+	color: rgb(182, 40, 40);
 }
 
 /* LOADING ANIMATION */

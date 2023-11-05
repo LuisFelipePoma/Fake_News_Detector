@@ -33,12 +33,12 @@ function handleUserNewFetch (url) {
     .then(res => res.json())
     .then(item => {
       $resultsCards.innerHTML = `
-			<article class="newsFake newsCard predictionUser">
+			<div class="newsCard">
 				<img src="${item[0].image}" alt="${item[0].title}">
 				<h3>${item[0].title}</h3>
-				<a href="${item[0].url}" target="_blank">Read more...</a>
+				<a href="${item[0].url}" target="_blank"></a>
 				<h2>20%</h2>
-			</article>
+			</div>
 		`
     })
 }
@@ -63,11 +63,13 @@ function createCards (news) {
     $card.classList.add('newsFake')
     $card.innerHTML = `
 			<img src="${item.image}" alt="${item.title}">
-			<h3>${item.title}</h3>
-			<a href="${item.url}" target="_blank">Read more...</a>
+			<h1>${item.title}</h1>
+			<p>Fake<p>
 			<h2>20%</h2>
 		`
-
+    $card.addEventListener('click', () => {
+      window.open(item.url, '_blank')
+    })
     $fragment.appendChild($card)
   })
   return $fragment

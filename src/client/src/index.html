@@ -9,6 +9,7 @@
 	<title>Vera</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cambay">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Rubik+Moonrocks">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 			<p>Determine a news' veracity with AI just by pasting its link!</p>
 		</section>
 		<section class="searcher">
-			<form action="javascript:void(0);" id="myForm" >
+			<form action="javascript:void(0);" id="myForm">
 				<input type="url" name="search" placeholder="Insert a news' link to check it's veracity..." required>
 				<button type="submit" class="submitBtn">
 					<i class="material-icons">check_circle</i>
@@ -28,13 +29,24 @@
 			</form>
 		</section>
 		<section class="results">
-			<div class="loading-animation"><div></div><div></div></div>
+			<div class="loading-animation">
+				<div></div>
+				<div></div>
+			</div>
 			<!-- <article class="newsCard">
 				<img src="assets/img/test.jpg" alt="thumbnail">
 				<h1>New AI tool detects fake news with 99% accuracy</h1>
 				<p>Fake</p>
 				<h2>20%</h2>
 			</article> -->
+			<!-- 
+				<div class="newsCard">
+                <img src="public/assets/img/test.jpg" alt="thumbnail">
+                <h1>New AI tool detects fake news with 99% accuracy</h1>
+                <p>Fake</p>
+                <h2>20%</h2>
+            </div>
+			 -->
 		</section>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js" defer></script>
