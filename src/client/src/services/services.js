@@ -21,13 +21,11 @@ export async function fetchCardsAPI (keyword) {
     console.error('Error fetching the API :', error)
   }
 }
+
 // Function to fetch data from API
 export async function fetchDataFromAPI (links) {
 
   // Construir la URL con el parámetro
-  // var url = 'https://ejemplo.com/miPagina?strings=' + cadenaCodificada
-  // const url =
-  //   `${URL_BASE}/ext?` + new URLSearchParams({ url: cadenaCodificada })
   const url = URL_BASE + '/scrap'
 
   // Try to Call the API

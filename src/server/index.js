@@ -9,8 +9,9 @@ let cacheRequest = new Map()
 const PORT = process.env.PORT || 8000
 
 const app = express()
-
+console.log('catch')
 await catchLinks()
+console.log('End catch')
 
 app.use(cors())
 app.use(json())
@@ -27,11 +28,11 @@ app.post('/scrap', async (req, res) => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     const _new = await extract(item)
     const body = {
-      title: _new.title || 'No title',
-      image:
-        _new.image ||
-        'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
-      url: _new.url || '/'
+      title: _new.title ?? 'No title',
+      image: _new.image
+        ? _new.image
+        : 'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
+      url: _new.url ? _new.url : '/'
     }
     cacheRequest.set(item, body)
     return body
@@ -48,11 +49,11 @@ app.get('/cards/:key', async (req, res) => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     const _new = await extract(item)
     const body = {
-      title: _new.title || 'No title',
-      image:
-        _new.image ||
-        'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
-      url: _new.url || '/'
+      title: _new.title ? _new.title : 'No title',
+      image: _new.image
+        ? _new.image
+        : 'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
+      url: _new.url ? _new.url : '/'
     }
     cacheRequest.set(item, body)
     return body

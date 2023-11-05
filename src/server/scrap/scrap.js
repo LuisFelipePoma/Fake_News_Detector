@@ -1,6 +1,4 @@
 import chromium from 'playwright-aws-lambda'
-// const { chromium, launch } = pkg
-// import { launch } from 'playwright-aws-lambda';
 
 import { PAGES_NEWS } from '../consts/const.js'
 
@@ -68,7 +66,8 @@ export async function getLinksPage (keyword) {
 export async function catchLinks () {
   // Código asincrónico aquí
   for (let i = 0; i < PAGES_NEWS.length; i++) {
-    await getLinksPage('article')
+    const answ = await getLinksPage('article')
+    console.log(answ)
   }
   // Realiza más operaciones después de que la función asincrónica se haya completado
   console.log('La operación asincrónica ha terminado con resultado')
