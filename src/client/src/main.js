@@ -1,4 +1,5 @@
 import { fetchDataFromAPI } from './services/services'
+import { NEWS } from './const/urls'
 
 // SELECTORS-----|
 
@@ -73,13 +74,6 @@ function createCards (news) {
   return $fragment
 }
 
-const NEWS = [
-  'https://edition.cnn.com/2023/11/03/politics/tlaib-biden-palestinian-genocide/index.html',
-  'https://www.theguardian.com/us-news/2023/nov/03/israel-aid-democrats-leahy-act-congress',
-  'https://www.theguardian.com/world/live/2023/nov/03/israel-hamas-war-live-updates-un-blinken-expected-call-for-pauses-fighting-allow-aid-gaza-tel-aviv-visit',
-  'https://edition.cnn.com/2023/09/25/entertainment/keanu-reeves-girlfriend-alexandra-grant/?dicbo=v2-PnWRX9Y&iid=ob_lockedrail_topeditorial',
-  'https://edition.cnn.com/2023/09/14/entertainment/sean-penn-will-smith/?dicbo=v2-2kjLto2&iid=ob_lockedrail_topeditorial'
-]
 // ----------------------- INIT
 ;(() => {
   createFormGetData() // Create form event to get data
