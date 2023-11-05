@@ -6,6 +6,8 @@ import { PAGES_NEWS } from '../consts/const.js'
 
 const cacheLinks = new Map()
 
+
+
 async function scrapeLinks (url, keyword) {
   const browser = await chromium.launchChromium({ headless: true }) // Cambia 'chromium' por el navegador de tu elección (firefox, webkit, etc.)
 
@@ -64,3 +66,13 @@ export async function getLinksPage (keyword) {
     return [] // En caso de error, retorna una lista vacía o maneja el error de la manera que desees.
   }
 }
+
+// Funcion async al inicio
+(async () => {
+  // Código asincrónico aquí
+	for(let i = 0;i< PAGES_NEWS.length;i++){
+		getLinksPage("article")
+	} 
+  // Realiza más operaciones después de que la función asincrónica se haya completado
+  console.log("La operación asincrónica ha terminado con resultado");
+})();
