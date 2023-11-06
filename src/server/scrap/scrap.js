@@ -9,14 +9,7 @@ async function scrapeLinks (url) {
   const page = await browser.newPage()
   await page.goto(url)
   try {
-    // replace with the number of links you want
-    const links = await page.$$eval(
-      'a',
-      (linkElements, maxLinks) => {
-        return linkElements.slice(0, maxLinks).map(link => link.href)
-      },
-      maxLinks
-    )
+    const links = await page.$$eval('a', linkElements => linkElements.map(link => link.href))
     return links.filter(
       href =>
         href.includes('.html') || href.includes('0') || href.includes('article')
@@ -46,7 +39,7 @@ function randomLinks (links) {
 export async function getLinksPage () {
   const index = Math.floor(Math.random() * PAGES_NEWS.length)
   const page = PAGES_NEWS[index]
-
+	console.log(cacheLinks)
   let links = cacheLinks.get(page)
 
   if (!links) {

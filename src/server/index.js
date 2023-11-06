@@ -40,7 +40,7 @@ app.get('/cards/', async (req, res) => {
     return body
   })
   const news = await Promise.all(promises)
-	console.log(`Return ${news}`)
+	console.log(`Return ${{...news}}`)
   res.status(201).json(news)
 })
 
