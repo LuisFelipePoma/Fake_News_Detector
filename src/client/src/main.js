@@ -17,7 +17,6 @@ function createFormGetData () {
 
     // Get url from data
     const url = data.search
-
     // Call function to fetch data from API
     handleUserNewFetch(url)
   })
@@ -29,14 +28,15 @@ function createFormGetData () {
 // Handle when user fetch data
 function handleUserNewFetch (url) {
   // Call function to fetch data from API
-  fetchDataFromAPI([url])
+  fetchDataFromAPI(url)
     .then(res => res.json())
     .then(item => {
+			console.log(item)
       $resultsCards.innerHTML = `
-			<div class="newsCard">
-				<img src="${item[0].image}" alt="${item[0].title}">
-				<h3>${item[0].title}</h3>
-				<a href="${item[0].url}" target="_blank"></a>
+			<div id="#result"class="newsCard" onclick="window.open('${item.url}', '_blank')">
+				<img src="${item.image}" alt="${item.title}">
+				<h1>${item.title}</h1>
+				<p>Fake<p>
 				<h2>20%</h2>
 			</div>
 		`
@@ -47,7 +47,7 @@ function handleUserNewFetch (url) {
 // Handle when load cards news predictions
 function handleCardsNewFetch () {
   $loadingAnimation.style.display = 'block'
-  fetchCardsAPI('politics')
+  fetchCardsAPI()
     .then(res => res.json())
     .then(news => {
       $resultsCards.appendChild(createCards(news))
@@ -58,13 +58,13 @@ function handleCardsNewFetch () {
 function createCards (news) {
   const $fragment = document.createDocumentFragment()
   news.forEach(item => {
-    const $card = document.createElement('article')
+    const $card = document.createElement('div')
     $card.classList.add('newsCard')
     $card.classList.add('newsFake')
     $card.innerHTML = `
 			<img src="${item.image}" alt="${item.title}">
 			<h1>${item.title}</h1>
-			<p>Fake<p>
+			<p>Fake</p>
 			<h2>20%</h2>
 		`
     $card.addEventListener('click', () => {

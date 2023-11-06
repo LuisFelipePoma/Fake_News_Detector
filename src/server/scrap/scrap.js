@@ -1,33 +1,23 @@
 import chromium from 'playwright-aws-lambda'
-
 import { PAGES_NEWS } from '../consts/const.js'
 
 const cacheLinks = new Map()
 
-async function scrapeLinks (url, keyword) {
+async function scrapeLinks (url) {
   const browser = await chromium.launchChromium({ headless: true })
-
   const page = await browser.newPage()
   await page.goto(url)
-
   try {
-    const links = await page.evaluate(keyword => {
-      const linkElements = Array.from(document.querySelectorAll('a'))
-      return linkElements
-        .map(link => link.href)
-        .filter(
-          href =>
-            href.includes(keyword) ||
-            href.includes('.html') ||
-            href.includes('0') ||
-            href.includes('article')
-        )
-    }, keyword)
-
-    return links
+    const links = await page.$$eval('a', linkElements =>
+      linkElements.map(link => link.href)
+    )
+    return links.filter(
+      href =>
+        href.includes('.html') || href.includes('0') || href.includes('article')
+    )
   } catch (error) {
     console.error('Error during scraping:', error)
-    return []
+    throw error
   } finally {
     await browser.close()
   }
@@ -47,22 +37,35 @@ function randomLinks (links) {
 }
 
 // ------------> FUNCTION TO GET LINKS OF THE PAGES |-> EXPORT
-export async function getLinksPage (keyword) {
+export async function getLinksPage () {
   const index = Math.floor(Math.random() * PAGES_NEWS.length)
   const page = PAGES_NEWS[index]
 
   let links = cacheLinks.get(page)
-  if (links) return randomLinks(links)
 
-  try {
-    links = await scrapeLinks(page, keyword)
-
-    // Aquí, si tienes una gran cantidad de enlaces, puedes paginar o cargar enlaces de manera diferida
-
-    cacheLinks.set(page, links)
-    return randomLinks(links)
-  } catch (error) {
-    console.error('Error:', error)
-    return []
+  if (!links) {
+    try {
+      links = await scrapeLinks(page)
+      cacheLinks.set(page, links)
+    } catch (error) {
+      console.error('Error:', error)
+      throw error
+    }
   }
+
+  return randomLinks(links)
+}
+
+export async function catchCards () {
+  console.log('Catching data')
+  for (let i = 0; i < PAGES_NEWS.length; i++) {
+    try {
+      const links = await scrapeLinks(PAGES_NEWS[i])
+      cacheLinks.set(PAGES_NEWS[i], links)
+    } catch (error) {
+      console.error('Error:', error)
+      throw error
+    }
+  }
+  console.log('Finishing catching data')
 }

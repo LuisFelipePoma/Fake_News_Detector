@@ -167,15 +167,16 @@ form input[type="url"]:focus {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	font-size: 2em;
+	font-size: 3em;
 }
 
 .newsCard p {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	font-family: 'Rubik Moonrocks';
+	font-family: 'Rubik Mono One', monospace;
 	font-size: 4em;
+	padding: 1rem 0 0 0;
 	/* font-weight: 900;	 */
 	color: rgb(182, 40, 40);
 }

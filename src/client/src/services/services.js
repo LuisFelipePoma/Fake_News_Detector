@@ -2,8 +2,8 @@
 const URL_BASE = import.meta.env.VITE_BACK_URL
 
 // Function to fetch data from API
-export async function fetchCardsAPI (keyword) {
-  const url = URL_BASE + '/cards/' + keyword
+export async function fetchCardsAPI () {
+  const url = URL_BASE + '/cards'
   // Try to Call the API
   try {
     const response = await fetch(url, {
@@ -23,20 +23,16 @@ export async function fetchCardsAPI (keyword) {
 }
 
 // Function to fetch data from API
-export async function fetchDataFromAPI (links) {
-
+export async function fetchDataFromAPI (page) {
   // Construir la URL con el parámetro
-  const url = URL_BASE + '/scrap'
-
+  const url = URL_BASE + `/scrap?url=${encodeURIComponent(page)}`
   // Try to Call the API
   try {
     const response = await fetch(url, {
       headers: {
-        Accept: 'application/json',
         'Content-Type': 'application/json'
       },
-      method: 'POST',
-      body: JSON.stringify({ links })
+      method: 'GET'
     })
     if (!response.ok) {
       throw new Error(`${response.status} ${response.statusText}`)
