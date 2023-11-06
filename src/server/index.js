@@ -31,16 +31,22 @@ app.get('/scrap', async (req, res) => {
 app.get('/cards/', async (req, res) => {
   console.log(`Request to /cards/`)
   const items = await getLinksPage()
-	console.log(`Get ${items}`)
+  console.log(`Get ${items}`)
   const promises = items.map(async item => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
-    const _new = await extract(item)
-    const body = getBody(_new)
-    cacheRequest.set(item, body)
-    return body
+    try {
+      const _new = await extract(item)
+      const body = getBody(_new)
+      cacheRequest.set(item, body)
+      return body
+    } catch (error) {
+      console.error('Error during scraping:', error)
+      const body = getBody(null)
+      return body
+    }
   })
   const news = await Promise.all(promises)
-	console.log(`Return ${{...news}}`)
+  console.log(`Return ${{ ...news }}`)
   res.status(201).json(news)
 })
 
