@@ -25,6 +25,7 @@ app.get('/scrap', async (req, res) => {
   const _new = await extract(item)
   const news = getBody(_new)
   cacheRequest.set(item, news)
+  console.log('Return', { ...news })
   res.status(201).json(news)
 })
 
@@ -46,7 +47,7 @@ app.get('/cards/', async (req, res) => {
     }
   })
   const news = await Promise.all(promises)
-  console.log(`Return ${{ ...news }}`)
+  console.log('Return', { ...news })
   res.status(201).json(news)
 })
 
