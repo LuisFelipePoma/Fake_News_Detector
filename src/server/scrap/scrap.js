@@ -2,14 +2,20 @@ import chromium from 'playwright-aws-lambda'
 import { PAGES_NEWS } from '../consts/const.js'
 
 const cacheLinks = new Map()
+const maxLinks = 10 
 
 async function scrapeLinks (url) {
   const browser = await chromium.launchChromium({ headless: true })
   const page = await browser.newPage()
   await page.goto(url)
   try {
-    const links = await page.$$eval('a', linkElements =>
-      linkElements.map(link => link.href)
+    // replace with the number of links you want
+    const links = await page.$$eval(
+      'a',
+      (linkElements, maxLinks) => {
+        return linkElements.slice(0, maxLinks).map(link => link.href)
+      },
+      maxLinks
     )
     return links.filter(
       href =>
