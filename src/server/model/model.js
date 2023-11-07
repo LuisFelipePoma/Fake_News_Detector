@@ -1,16 +1,9 @@
 import natural from 'natural'
 import { lemmatizer } from 'lemmatizer'
-import tf from '@tensorflow/tfjs-node/dist/index.js'
+import tf from '@tensorflow/tfjs-node'
 import path from 'path'
 import fetch from 'node-fetch'
 global.fetch = fetch
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-// import tf from '@tensorflow/tfjs-node'
 
 const tokenizer = new natural.WordTokenizer()
 const stopwords = natural.stopwords
@@ -18,19 +11,12 @@ const stopwords = natural.stopwords
 // add layers to your model here
 
 export async function cleanData (jsonData) {
-  const options = {
-    root: path.join(__dirname)
-  }
   // const handler = tf.io.('nmvrnn_model/model.json')
-  const fileName = path.resolve('./rnn_model/model.json')
+  const fileName = path.resolve('./model/rnn_model/model.json')
   const root = 'file://' + fileName
-  console.log(root)
-  // const model = await tf.loadLayersModel(root)
-  const model = await tf.loadLayersModel(
-    tf.io.fileSystem(
-      'file://D:\\Codes\\IA-Project\\src\\server\\rnn_model\\model.json'
-    )
-  )
+	
+  // const model = await tf.loadLayersModel("http://localhost:3000/model")
+  const model = await tf.loadLayersModel(root)
 
   // Obtén el texto del JSON
   const text = jsonData.content

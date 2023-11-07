@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 // CONST CACHE
 let cacheRequest = new Map()
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 3023
 
 const app = express()
 
@@ -77,6 +77,6 @@ app.get('/model', (req, res, next) => {
 
 app.listen(PORT, '0.0.0.0', async () => {
 	console.log(__dirname)
-  await catchCards()
+  // await catchCards()
   console.log(`✅ Server is running on port ${PORT}`)
 })
