@@ -23,7 +23,8 @@
 		"node-fetch": "^3.3.2",
 		"path": "^0.12.7",
 		"playwright": "1.39.0",
-		"playwright-aws-lambda": "0.10.0"
+		"playwright-aws-lambda": "0.10.0",
+		"tf_node_tokenizer": "^1.0.3"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.15",

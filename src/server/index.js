@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 // CONST CACHE
 let cacheRequest = new Map()
-const PORT = process.env.PORT || 3023
+const PORT = process.env.PORT || 5000
 
 const app = express()
 
@@ -23,7 +23,7 @@ app.use(json())
 
 app.get('/', (req, res) => {
   res.send('APIS for Web Scrapping!!!')
-})
+}) 
 
 app.get('/scrap', async (req, res) => {
   console.log('Request to /scrap')

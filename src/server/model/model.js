@@ -1,5 +1,7 @@
 import natural from 'natural'
 import { lemmatizer } from 'lemmatizer'
+import { Tokenizer } from "tf_node_tokenizer"
+const bow = new Tokenizer({ num_words: 100, oov_token:"<unk>", });
 import tf from '@tensorflow/tfjs-node'
 import path from 'path'
 import fetch from 'node-fetch'
@@ -43,7 +45,8 @@ export async function cleanData (jsonData) {
 
   // Convierte los tokens en un texto preprocesado
   // const preprocessedText = filteredTokens.join(' ')
-
+	// bow.fitOnTexts(textoSinHTML)
+	// const representation = bow.textsToSequences(filteredTokens)
   jsonData.content = filteredTokens
   return jsonData
 }
