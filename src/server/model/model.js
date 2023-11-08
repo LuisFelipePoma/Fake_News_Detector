@@ -25,23 +25,21 @@ async function loadFiles () {
 
 export function handleData (data) {
   const tokens = cleanData(data)
-  // const prediction = await predictData(tokens)
-	data.prediction = tokens
+  const representation = prepareData(tokens)
+	data.prediction = representation
 }
 
-// async function predictData (tokens) {
-//   // Truncate or pad the tokens array to a length of 100
-//   tokens = tokens.slice(0, 100)
-//   while (tokens.length < 100) {
-//     tokens.push(0) // Assuming 0 is an appropriate padding value
-//   }
+function prepareData (tokens) {
+  // Truncate or pad the tokens array to a length of 100
+  tokens = tokens.slice(0, 100)
+  while (tokens.length < 100) {
+    tokens.push(0) // Assuming 0 is an appropriate padding value
+  }
 
-//   // Train model with data_train
-//   const data = Float32Array.from(tokens)
-//   const tensorKeras = tf.tensor2d([data]) // Specify the shape explicitly
-//   const predictions = await MODEL.predict(tensorKeras).dataSync()
-//   return predictions
-// }
+  // Train model with data_train
+  // const data = Float32Array.from(tokens)
+  return tokens
+}
 
 function cleanData (jsonData) {
   // Obtén el texto del JSON

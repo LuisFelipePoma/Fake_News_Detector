@@ -29,7 +29,7 @@ app.get('/scrap', async (req, res) => {
   const item = req.query.url
   if (cacheRequest.has(item)) return cacheRequest.get(item)
   const _new = await extract(item)
-	await handleData(_new)
+	handleData(_new)
   const news = getBody(_new)
   cacheRequest.set(item, news)
   console.log('Return', { ...news })
