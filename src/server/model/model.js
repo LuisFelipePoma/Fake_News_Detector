@@ -35,9 +35,6 @@ function prepareData (tokens) {
   while (tokens.length < 100) {
     tokens.push(0) // Assuming 0 is an appropriate padding value
   }
-
-  // Train model with data_train
-  // const data = Float32Array.from(tokens)
   return tokens
 }
 
