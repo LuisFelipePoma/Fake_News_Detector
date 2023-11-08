@@ -44,7 +44,7 @@ app.get('/cards/', async (req, res) => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     try {
       const _new = await extract(item)
-      await handleData(_new)
+      handleData(_new)
       const body = getBody(_new)
       cacheRequest.set(item, body)
       return body
@@ -61,6 +61,6 @@ app.get('/cards/', async (req, res) => {
 
 app.listen(PORT, '0.0.0.0', async () => {
   console.log(__dirname)
-  // await catchCards()
+  await catchCards()
   console.log(`✅ Server is running on port ${PORT}`)
 })

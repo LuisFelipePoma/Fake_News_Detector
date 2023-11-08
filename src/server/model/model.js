@@ -1,7 +1,5 @@
 import natural from 'natural'
 import { lemmatizer } from 'lemmatizer'
-import tf from '@tensorflow/tfjs-node'
-import path from 'path'
 import { readVocabulary } from './Vocabulary/vocab.js'
 
 import fetch from 'node-fetch'
@@ -10,38 +8,40 @@ global.fetch = fetch
 const tokenizer = new natural.WordTokenizer()
 const stopwords = natural.stopwords
 
-const [MODEL, VOCAB] = await loadFiles()
+// const [MODEL, VOCAB] = await loadFiles()
+const VOCAB = await loadFiles()
 
 async function loadFiles () {
-  // LOAD THE MODEL RNN (LSTM)
-  const fileName = path.resolve('./model/rnn_model/model.json')
-  const root = 'file://' + fileName
-  const model = await tf.loadLayersModel(root)
+  // // LOAD THE MODEL RNN (LSTM)
+  // const fileName = path.resolve('./model/rnn_model/model.json')
+  // const root = 'file://' + fileName
+  // const model = await tf.loadLayersModel(root)
 
   // LOAD THE VOCABULARY
   const vocabulary = await readVocabulary()
-  return [model, vocabulary]
+  // return [model, vocabulary]
+  return vocabulary
 }
 
-export async function handleData (data) {
+export function handleData (data) {
   const tokens = cleanData(data)
-  const prediction = await predictData(tokens)
-	data.prediction = prediction
+  // const prediction = await predictData(tokens)
+	data.prediction = tokens
 }
 
-async function predictData (tokens) {
-  // Truncate or pad the tokens array to a length of 100
-  tokens = tokens.slice(0, 100)
-  while (tokens.length < 100) {
-    tokens.push(0) // Assuming 0 is an appropriate padding value
-  }
+// async function predictData (tokens) {
+//   // Truncate or pad the tokens array to a length of 100
+//   tokens = tokens.slice(0, 100)
+//   while (tokens.length < 100) {
+//     tokens.push(0) // Assuming 0 is an appropriate padding value
+//   }
 
-  // Train model with data_train
-  const data = Float32Array.from(tokens)
-  const tensorKeras = tf.tensor2d([data]) // Specify the shape explicitly
-  const predictions = await MODEL.predict(tensorKeras).dataSync()
-  return predictions
-}
+//   // Train model with data_train
+//   const data = Float32Array.from(tokens)
+//   const tensorKeras = tf.tensor2d([data]) // Specify the shape explicitly
+//   const predictions = await MODEL.predict(tensorKeras).dataSync()
+//   return predictions
+// }
 
 function cleanData (jsonData) {
   // Obtén el texto del JSON
