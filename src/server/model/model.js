@@ -3,68 +3,70 @@ import { lemmatizer } from 'lemmatizer'
 import { readVocabulary } from './Vocabulary/vocab.js'
 
 import fetch from 'node-fetch'
+import { SEQUENCE_LENGTH, VOCAB_SIZE } from '../consts/const.js'
 global.fetch = fetch
 
 const tokenizer = new natural.WordTokenizer()
 const stopwords = natural.stopwords
 
-// const [MODEL, VOCAB] = await loadFiles()
 const VOCAB = await loadFiles()
 
-async function loadFiles () {
-  // // LOAD THE MODEL RNN (LSTM)
-  // const fileName = path.resolve('./model/rnn_model/model.json')
-  // const root = 'file://' + fileName
-  // const model = await tf.loadLayersModel(root)
+async function loadFiles() {
 
-  // LOAD THE VOCABULARY
-  const vocabulary = await readVocabulary()
-  // return [model, vocabulary]
-  return vocabulary
+	// LOAD THE VOCABULARY
+	const vocabulary = await readVocabulary()
+	// return [model, vocabulary]
+	return vocabulary
 }
 
-export function handleData (data) {
-  const tokens = cleanData(data)
-  const representation = prepareData(tokens)
+export function handleData(data) {
+	const tokens = cleanData(data)
+	const representation = prepareData(tokens)
 	data.prediction = representation
 }
 
-function prepareData (tokens) {
-  // Truncate or pad the tokens array to a length of 100
-  tokens = tokens.slice(0, 100)
-  while (tokens.length < 100) {
-    tokens.push(0) // Assuming 0 is an appropriate padding value
-  }
-  return tokens
+function prepareData(tokens) {
+	// Truncate or pad the tokens array to a length of 100
+	tokens = tokens.slice(0, SEQUENCE_LENGTH)
+	while (tokens.length < SEQUENCE_LENGTH) {
+		tokens.push(0) // Assuming 0 is an appropriate padding value
+	}
+	return tokens
 }
 
-function cleanData (jsonData) {
-  // Obtén el texto del JSON
-  const text = jsonData.content + jsonData.title
+function cleanData(jsonData) {
+	// Obtén el texto del JSON
+	const text = jsonData.content + ' ' + jsonData.title
+	// Elimina todas las etiquetas HTML
 
-  // Elimina todas las etiquetas HTML
-  const textoSinHTML = text.replace(/<[^>]*>/g, '')
+	const textoSinHTML = text.replace(/<[^>]*>/g, '')
 
-  // Elimina los números y signos de puntuación
-  const textoLimpio = textoSinHTML.replace(
-    /[0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g,
-    ''
-  )
 
-  // Tokenización
-  const tokens = tokenizer.tokenize(textoLimpio.toLowerCase())
+	// Elimina los números y signos de puntuación
+	const textoLimpio = textoSinHTML.replace(
+		/[0-9!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g,
+		''
+	)
 
-  // Lematización (opcional)
-  const lemmatizedTokens = tokens.map(token => lemmatizer(token))
+	// Tokenización
+	const tokens = tokenizer.tokenize(textoLimpio.toLowerCase())
 
-  // Eliminación de stopwords (opcional)
-  const filteredTokens = lemmatizedTokens.filter(
-    token => !stopwords.includes(token)
-  )
+	// Lematización (opcional)
+	const lemmatizedTokens = tokens.map(token => lemmatizer(token))
 
-  const indices = filteredTokens.map(token => {
-    const indice = VOCAB[token]
-    return indice !== undefined && indice <= 9999 ? indice : 0
-  })
-  return indices
+	// Eliminación de stopwords (opcional)
+	const filteredTokens = lemmatizedTokens.filter(
+		token => !stopwords.includes(token)
+	)
+	console.log("TEXTO\n", filteredTokens)
+	let i = 0
+	const indices = filteredTokens.map(token => {
+		i++
+		const indice = VOCAB[token]
+		return indice !== undefined && indice < VOCAB_SIZE ? indice : 0
+	})
+	console.log("size of ", i)
+	console.log("size of ", indices.length)
+	console.log("size of ", indices)
+	return indices
 }

@@ -5,11 +5,7 @@ import cors from 'cors'
 import { catchCards, getLinksPage } from './scrap/scrap.js'
 import { getBody } from './schema/schema.js'
 import { handleData } from './model/model.js'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
 
 // CONST CACHE
 let cacheRequest = new Map()
@@ -39,10 +35,10 @@ app.get('/scrap', async (req, res) => {
 app.get('/cards/', async (req, res) => {
   console.log(`Request to /cards/`)
   const items = await getLinksPage()
-  console.log(`Get ${items}`)
   const promises = items.map(async item => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     try {
+			
       const _new = await extract(item)
       handleData(_new)
       const body = getBody(_new)
@@ -60,7 +56,6 @@ app.get('/cards/', async (req, res) => {
 })
 
 app.listen(PORT, '0.0.0.0', async () => {
-  console.log(__dirname)
   await catchCards()
   console.log(`✅ Server is running on port ${PORT}`)
 })

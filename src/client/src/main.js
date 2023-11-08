@@ -67,7 +67,7 @@ async function createCards(news) {
 	for (const item of news) {
 		let prediction = await predict(item.prediction);
 		const classname = prediction > 60 ? 'Vera' : 'Fake';
-		
+		console.log(news)
 
 		const $card = document.createElement('div');
 		$card.classList.add('newsCard');

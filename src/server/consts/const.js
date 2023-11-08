@@ -1,5 +1,6 @@
 export const PAGES_NEWS = [
-	// "https://edition.cnn.com/",
 	"https://www.theguardian.com/",
-	// "https://www.nytimes.com/",
 ]
+
+export const VOCAB_SIZE = 10000
+export const SEQUENCE_LENGTH = 250
