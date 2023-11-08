@@ -2,7 +2,6 @@ import chromium from 'playwright-aws-lambda'
 import { PAGES_NEWS } from '../consts/const.js'
 
 const cacheLinks = new Map()
-const maxLinks = 10 
 
 async function scrapeLinks (url) {
   const browser = await chromium.launchChromium({ headless: true })
