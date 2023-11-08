@@ -7,6 +7,7 @@ __pycache__/
 package-lock.json
 node_modules
 
+/Fake News Dataset
 # Dataset
 *.parquet
 

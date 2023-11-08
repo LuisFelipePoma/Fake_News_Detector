@@ -4,13 +4,12 @@ import express, { json } from 'express'
 import cors from 'cors'
 import { catchCards, getLinksPage } from './scrap/scrap.js'
 import { getBody } from './schema/schema.js'
-import { cleanData } from './model/model.js'
-import path from 'path'
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import { handleData } from './model/model.js'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 // CONST CACHE
 let cacheRequest = new Map()
@@ -30,6 +29,7 @@ app.get('/scrap', async (req, res) => {
   const item = req.query.url
   if (cacheRequest.has(item)) return cacheRequest.get(item)
   const _new = await extract(item)
+	await handleData(_new)
   const news = getBody(_new)
   cacheRequest.set(item, news)
   console.log('Return', { ...news })
@@ -44,9 +44,8 @@ app.get('/cards/', async (req, res) => {
     if (cacheRequest.has(item)) return cacheRequest.get(item)
     try {
       const _new = await extract(item)
+      await handleData(_new)
       const body = getBody(_new)
-      await cleanData(body)
-
       cacheRequest.set(item, body)
       return body
     } catch (error) {
@@ -60,23 +59,8 @@ app.get('/cards/', async (req, res) => {
   res.status(201).json(news)
 })
 
-app.get('/model', (req, res, next) => {
-  const options = {
-    root: path.join(__dirname)
-  }
-  console.log('Request to /model')
-  const fileName = './model/rnn_model/model.json'
-  res.sendFile(fileName, options, function (err) {
-    if (err) {
-      next(err)
-    } else {
-      console.log('Sent:', fileName)
-    }
-  })
-})
-
 app.listen(PORT, '0.0.0.0', async () => {
-	console.log(__dirname)
-  await catchCards()
+  console.log(__dirname)
+  // await catchCards()
   console.log(`✅ Server is running on port ${PORT}`)
 })

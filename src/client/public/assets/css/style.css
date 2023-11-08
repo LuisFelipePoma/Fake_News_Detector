@@ -178,6 +178,13 @@ form input[type="url"]:focus {
 	font-size: 4em;
 	padding: 1rem 0 0 0;
 	/* font-weight: 900;	 */
+}
+
+.Vera{
+	color: rgb(49, 120, 186);
+}
+
+.Fake{
 	color: rgb(182, 40, 40);
 }
 

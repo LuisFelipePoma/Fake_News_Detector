@@ -45,15 +45,6 @@
 								},
 								"registered_name": null
 							},
-							"embeddings_regularizer": {
-								"module": "keras.regularizers",
-								"class_name": "L2",
-								"config": {
-									"l2": 0.009999999776482582
-								},
-								"registered_name": null
-							},
-							"activity_regularizer": null,
 							"embeddings_constraint": null,
 							"mask_zero": false,
 							"input_length": 100
@@ -99,10 +90,6 @@
 								"registered_name": null
 							},
 							"unit_forget_bias": true,
-							"kernel_regularizer": null,
-							"recurrent_regularizer": null,
-							"bias_regularizer": null,
-							"activity_regularizer": null,
 							"kernel_constraint": null,
 							"recurrent_constraint": null,
 							"bias_constraint": null,
@@ -134,16 +121,6 @@
 								"config": {},
 								"registered_name": null
 							},
-							"kernel_regularizer": {
-								"module": "keras.regularizers",
-								"class_name": "L2",
-								"config": {
-									"l2": 0.009999999776482582
-								},
-								"registered_name": null
-							},
-							"bias_regularizer": null,
-							"activity_regularizer": null,
 							"kernel_constraint": null,
 							"bias_constraint": null
 						}
@@ -171,9 +148,6 @@
 								"config": {},
 								"registered_name": null
 							},
-							"kernel_regularizer": null,
-							"bias_regularizer": null,
-							"activity_regularizer": null,
 							"kernel_constraint": null,
 							"bias_constraint": null
 						}
@@ -201,9 +175,6 @@
 								"config": {},
 								"registered_name": null
 							},
-							"kernel_regularizer": null,
-							"bias_regularizer": null,
-							"activity_regularizer": null,
 							"kernel_constraint": null,
 							"bias_constraint": null
 						}

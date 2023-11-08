@@ -31,13 +31,14 @@ function handleUserNewFetch (url) {
   fetchDataFromAPI(url)
     .then(res => res.json())
     .then(item => {
-			console.log(item)
+      const prediction = Math.round(item.prediction[0] * 100) / 100
+			const classname = prediction < 60 ?  'Vera':'Fake'
       $resultsCards.innerHTML = `
 			<div id="#result"class="newsCard" onclick="window.open('${item.url}', '_blank')">
 				<img src="${item.image}" alt="${item.title}">
 				<h1>${item.title}</h1>
-				<p>Fake<p>
-				<h2>20%</h2>
+				<p class="${classname}">${classname}<p>
+				<h2>${prediction}%</h2>
 			</div>
 		`
     })
@@ -58,14 +59,17 @@ function handleCardsNewFetch () {
 function createCards (news) {
   const $fragment = document.createDocumentFragment()
   news.forEach(item => {
+    const prediction = Math.round(item.prediction[0] * 100) / 100
+		const classname = prediction < 60 ?  'Vera':'Fake'
+
     const $card = document.createElement('div')
     $card.classList.add('newsCard')
     $card.classList.add('newsFake')
     $card.innerHTML = `
 			<img src="${item.image}" alt="${item.title}">
 			<h1>${item.title}</h1>
-			<p>Fake</p>
-			<h2>20%</h2>
+			<p class="${classname}">${classname}<p>
+			<h2>${prediction}%</h2>
 		`
     $card.addEventListener('click', () => {
       window.open(item.url, '_blank')
