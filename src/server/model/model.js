@@ -22,7 +22,7 @@ async function loadFiles() {
 export function handleData(data) {
 	const tokens = cleanData(data)
 	const representation = prepareData(tokens)
-	data.prediction = representation
+	data.tokens = representation
 }
 
 function prepareData(tokens) {
@@ -58,15 +58,9 @@ function cleanData(jsonData) {
 	const filteredTokens = lemmatizedTokens.filter(
 		token => !stopwords.includes(token)
 	)
-	console.log("TEXTO\n", filteredTokens)
-	let i = 0
 	const indices = filteredTokens.map(token => {
-		i++
 		const indice = VOCAB[token]
 		return indice !== undefined && indice < VOCAB_SIZE ? indice : 0
 	})
-	console.log("size of ", i)
-	console.log("size of ", indices.length)
-	console.log("size of ", indices)
 	return indices
 }

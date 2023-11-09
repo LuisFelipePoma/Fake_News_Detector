@@ -6,13 +6,13 @@ export function getBody (item) {
         ? item.image
         : 'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
       url: item.url ? item.url : '/',
-			prediction: item.prediction
+			tokens: item.tokens
     }
 		return {
 			title: 'No title',
 			image:
       'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
 			url: '/',
-			prediction: '0'
+			tokens: undefined
   }
 }

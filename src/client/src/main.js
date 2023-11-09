@@ -31,8 +31,18 @@ async function handleUserNewFetch(url) {
 		// Fetch data from API and predict
 		const res = await fetchDataFromAPI(url);
 		const item = await res.json();
-		const prediction = await predict(item.prediction);
-		const classname = prediction < 60 ? 'Vera' : 'Fake';
+		let prediction = await predict(item.tokens);
+		let classname = undefined
+		if (prediction > 0.5) {
+			classname = 'Fake';
+		} else {
+			classname = 'Vera'
+			prediction = 1 - prediction
+		}
+		prediction = Math.round(prediction * 10000) / 100
+		console.log(item)
+		console.log(prediction)
+
 
 		$resultsCards.innerHTML = `
       <div class="newsCard" onclick="window.open('${item.url}', '_blank')">
@@ -65,10 +75,17 @@ async function handleCardsNewFetch() {
 async function createCards(news) {
 	const $fragment = document.createDocumentFragment();
 	for (const item of news) {
-		let prediction = await predict(item.prediction);
-		const classname = prediction > 60 ? 'Vera' : 'Fake';
-		console.log(news)
+		let prediction = await predict(item.tokens);
+		let classname = undefined
+		if (prediction > 0.5) {
+			classname = 'Fake';
+		} else {
+			classname = 'Vera'
+			prediction = 1 - prediction
+		}
+		prediction = Math.round(prediction * 10000) / 100
 
+		console.log(news)
 		const $card = document.createElement('div');
 		$card.classList.add('newsCard');
 		$card.classList.add('newsFake');
@@ -100,12 +117,11 @@ async function predict(inputData) {
 	try {
 		const tensorKeras = tf.tensor2d([inputData]);
 		const response = await MODEL.predict(tensorKeras).dataSync();
-		let prediction = Math.round(response[0] * 100) / 100;
-		console.log(prediction)
-		if (prediction < 60.0) {
-			prediction = 100.0 - prediction === 100.0 ? 100 : 100.0 - prediction
-		}
-		
+		console.log(response[0])
+		let prediction = response[0];
+
+
+
 		return prediction
 	} catch (error) {
 		console.error(`Failed to predict: ${error}`);

@@ -6,7 +6,6 @@ import { catchCards, getLinksPage } from './scrap/scrap.js'
 import { getBody } from './schema/schema.js'
 import { handleData } from './model/model.js'
 
-
 // CONST CACHE
 let cacheRequest = new Map()
 const PORT = process.env.PORT || 8000
@@ -32,7 +31,7 @@ app.get('/scrap', async (req, res) => {
   res.status(201).json(news)
 })
 
-app.get('/cards/', async (req, res) => {
+app.get('/cards', async (req, res) => {
   console.log(`Request to /cards/`)
   const items = await getLinksPage()
   const promises = items.map(async item => {

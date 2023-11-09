@@ -38,7 +38,6 @@ function randomLinks(links) {
 export async function getLinksPage() {
 	const index = Math.floor(Math.random() * PAGES_NEWS.length)
 	const page = PAGES_NEWS[index]
-	console.log(cacheLinks)
 	let links = cacheLinks.get(page)
 
 	if (!links) {
