@@ -2,12 +2,14 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+#
+test.json
 #node
 package-lock.json
 node_modules
 *:Zone.Identifier
-
+features.json
+src/model/vocab.json
 /Fake News Dataset
 # Dataset
 *.parquet
