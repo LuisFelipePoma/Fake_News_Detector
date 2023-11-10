@@ -13,7 +13,7 @@ src/model/vocab.json
 /Fake News Dataset
 # Dataset
 *.parquet
-
+*.txt
 # Word2Vec
 *.model
 word2vec.model.*
