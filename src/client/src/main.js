@@ -34,9 +34,9 @@ async function handleUserNewFetch(url) {
 		let prediction = await predict(item.tokens);
 		let classname = undefined
 		if (prediction > 0.5) {
-			classname = 'Fake';
-		} else {
 			classname = 'Vera'
+		} else {
+			classname = 'Fake';
 			prediction = 1 - prediction
 		}
 		prediction = Math.round(prediction * 10000) / 100
@@ -78,9 +78,9 @@ async function createCards(news) {
 		let prediction = await predict(item.tokens);
 		let classname = undefined
 		if (prediction > 0.5) {
-			classname = 'Fake';
-		} else {
 			classname = 'Vera'
+		} else {
+			classname = 'Fake';
 			prediction = 1 - prediction
 		}
 		prediction = Math.round(prediction * 10000) / 100
@@ -117,11 +117,8 @@ async function predict(inputData) {
 	try {
 		const tensorKeras = tf.tensor2d([inputData]);
 		const response = await MODEL.predict(tensorKeras).dataSync();
-		console.log(response[0])
+		console.log(response)
 		let prediction = response[0];
-
-
-
 		return prediction
 	} catch (error) {
 		console.error(`Failed to predict: ${error}`);

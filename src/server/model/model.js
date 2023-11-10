@@ -3,9 +3,9 @@ import { lemmatizer } from 'lemmatizer'
 import { readVocabulary } from './Vocabulary/vocab.js'
 
 import fetch from 'node-fetch'
-import { SEQUENCE_LENGTH, VOCAB_SIZE } from '../consts/const.js'
 global.fetch = fetch
 
+import { SEQUENCE_LENGTH, VOCAB_SIZE } from '../consts/const.js'
 const tokenizer = new natural.WordTokenizer()
 const stopwords = natural.stopwords
 
@@ -29,7 +29,7 @@ function prepareData(tokens) {
 	// Truncate or pad the tokens array to a length of 100
 	tokens = tokens.slice(0, SEQUENCE_LENGTH)
 	while (tokens.length < SEQUENCE_LENGTH) {
-		tokens.push(0) // Assuming 0 is an appropriate padding value
+		tokens.push(2) // Assuming 0 is an appropriate padding value
 	}
 	return tokens
 }
@@ -60,7 +60,8 @@ function cleanData(jsonData) {
 	)
 	const indices = filteredTokens.map(token => {
 		const indice = VOCAB[token]
-		return indice !== undefined && indice < VOCAB_SIZE ? indice : 0
+		// return indice !== undefined && indice < VOCAB_SIZE ? indice : 2
+		return indice !== undefined ? indice : 999
 	})
 	return indices
 }
