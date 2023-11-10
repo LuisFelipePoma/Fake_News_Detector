@@ -3,7 +3,8 @@ import { extract } from '@extractus/article-extractor'
 import express, { json } from 'express'
 import cors from 'cors'
 import { catchCards, getLinksPage } from './scrap/scrap.js'
-import { getBody } from './model/model.js'
+import { getBody } from './schema/schema.js'
+import { handleData } from './model/model.js'
 
 // CONST CACHE
 let cacheRequest = new Map()
@@ -15,43 +16,49 @@ app.use(cors())
 app.use(json())
 
 app.get('/', (req, res) => {
-  res.send('APIS for Web Scrapping!!!')
+	res.send('APIS for Web Scrapping!!!')
 })
 
 app.get('/scrap', async (req, res) => {
-  console.log('Request to /scrap')
-  const item = req.query.url
-  if (cacheRequest.has(item)) return cacheRequest.get(item)
-  const _new = await extract(item)
-  const news = getBody(_new)
-  cacheRequest.set(item, news)
-  console.log('Return', { ...news })
-  res.status(201).json(news)
+	console.log('Request to /scrap')
+	const item = req.query.url
+	if (cacheRequest.has(item)) {
+		const news = cacheRequest.get(item)
+		return res.status(201).json(news)
+	}
+	// const _new = await extract(item)
+	const _new = await extract(item)
+	handleData(_new)
+	const news = getBody(_new)
+	cacheRequest.set(item, news)
+	console.log('Return', { ...news })
+	res.status(201).json(news)
 })
 
-app.get('/cards/', async (req, res) => {
-  console.log(`Request to /cards/`)
-  const items = await getLinksPage()
-  console.log(`Get ${items}`)
-  const promises = items.map(async item => {
-    if (cacheRequest.has(item)) return cacheRequest.get(item)
-    try {
-      const _new = await extract(item)
-      const body = getBody(_new)
-      cacheRequest.set(item, body)
-      return body
-    } catch (error) {
-      console.error('Error during scraping:', error)
-      const body = getBody(null)
-      return body
-    }
-  })
-  const news = await Promise.all(promises)
-  console.log('Return', { ...news })
-  res.status(201).json(news)
+app.get('/cards', async (req, res) => {
+	console.log(`Request to /cards/`)
+	const items = await getLinksPage()
+	const promises = items.map(async item => {
+		if (cacheRequest.has(item)) return cacheRequest.get(item)
+		try {
+
+			const _new = await extract(item)
+			handleData(_new)
+			const body = getBody(_new)
+			cacheRequest.set(item, body)
+			return body
+		} catch (error) {
+			console.error('Error during scraping:', error)
+			const body = getBody(null)
+			return body
+		}
+	})
+	const news = await Promise.all(promises)
+	console.log('Return', { ...news })
+	res.status(201).json(news)
 })
 
 app.listen(PORT, '0.0.0.0', async () => {
-  await catchCards()
-  console.log(`✅ Server is running on port ${PORT}`)
+	await catchCards()
+	console.log(`✅ Server is running on port ${PORT}`)
 })

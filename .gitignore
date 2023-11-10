@@ -2,19 +2,24 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+#
+test.json
 #node
 package-lock.json
 node_modules
-
+*:Zone.Identifier
+features.json
+src/model/vocab.json
+/Fake News Dataset
 # Dataset
 *.parquet
-
+*.txt
 # Word2Vec
 *.model
 word2vec.model.*
 
 *.csv
+kaggle.json
 
 # C extensions
 *.so
