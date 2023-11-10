@@ -105,9 +105,9 @@ async function createCards(news) {
 
 // Load Models
 async function loadModels() {
-	console.log("loagind models...")
+	console.log("loading models...")
 	try {
-		MODEL = await tf.loadLayersModel('./model/rnn_model/model.json');
+		MODEL = await tf.loadLayersModel('model/rnn_model/model.json');
 	} catch (error) {
 		console.error(`Error loading model: ${error}`);
 	}
