@@ -13,6 +13,6 @@ export function getBody (item) {
 			image:
       'https://static.vecteezy.com/system/resources/previews/005/337/799/large_2x/icon-image-not-found-free-vector.jpg',
 			url: '/',
-			tokens: undefined
+			tokens: [0]
   }
 }
