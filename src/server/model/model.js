@@ -1,16 +1,17 @@
-import natural from 'natural'
-import { lemmatizer } from 'lemmatizer'
+import {VOCAB} from './vocab.js'
+import natural from 'natural' 
+import { lemmatizer } from 'lemmatizer' 
 // Import a json file like a variable
-import vocabulary from './vocab.json'  assert { type: "json" }
 
 import fetch from 'node-fetch'
 global.fetch = fetch
 
 import { SEQUENCE_LENGTH, VOCAB_SIZE } from '../consts/const.js'
+
+
 const tokenizer = new natural.WordTokenizer()
 const stopwords = natural.stopwords
 
-const VOCAB = new Map(Object.entries(vocabulary));
 
 export function handleData(data) {
 	const tokens = cleanData(data)
