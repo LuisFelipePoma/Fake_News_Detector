@@ -18,7 +18,6 @@
 		"cors": "2.8.5",
 		"dotenv": "16.0.3",
 		"express": "4.18.2",
-		"lemmatizer": "0.0.1",
 		"natural": "6.8.0",
 		"node-fetch": "3.3.2",
 		"path": "0.12.7",

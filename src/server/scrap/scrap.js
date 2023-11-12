@@ -11,7 +11,15 @@ async function scrapeLinks(url) {
 		const links = await page.$$eval('a', linkElements => linkElements.map(link => link.href))
 		return links.filter(
 			href =>
-				href.includes('.html') || href.includes('0') || href.includes('article')
+				(href.includes('.html')
+					|| href.includes('0')
+					|| href.includes('article')
+				)
+				&&
+				!(href.includes('video')
+					|| href.includes('podcast')
+					|| href.includes('season')
+				)
 		)
 	} catch (error) {
 		console.error('Error during scraping:', error)
