@@ -20,10 +20,10 @@ export function handleData(data) {
 
 function prepareData(tokens) {
 	// Truncate or pad the tokens array to a length of 100
-	tokens = tokens.slice(0, SEQUENCE_LENGTH)
-	while (tokens.length < SEQUENCE_LENGTH) {
-		tokens.push(2) // Assuming 0 is an appropriate padding value
-	}
+	// tokens = tokens.slice(0, SEQUENCE_LENGTH)
+	// while (tokens.length < SEQUENCE_LENGTH) {
+	// 	tokens.push(2) // Assuming 0 is an appropriate padding value
+	// }
 	return tokens
 }
 
