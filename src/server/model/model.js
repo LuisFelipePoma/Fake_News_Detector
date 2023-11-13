@@ -95,7 +95,7 @@ function cleanData(jsonData) {
 		if (indice !== undefined) {
 			return indice
 		}
-		return 500
+		return 0
 	})
 	return indices
 }
