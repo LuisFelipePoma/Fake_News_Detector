@@ -22,15 +22,14 @@ function createFormGetData() {
 	});
 }
 
-// Functions
+// --------------------------------------------------> Functions
 
 // HANDLE USER PREDICTION
 // Handle when user fetches data
 async function handleUserNewFetch(url) {
 	try {
 		// Fetch data from API and predict
-		const res = await fetchDataFromAPI(url);
-		const item = await res.json();
+		const item = await fetchDataFromAPI(url);
 		let prediction = await predict(item.tokens);
 		let classname = undefined
 		if (prediction > 0.5) {
@@ -40,9 +39,6 @@ async function handleUserNewFetch(url) {
 			prediction = 1 - prediction
 		}
 		prediction = Math.round(prediction * 10000) / 100
-		console.log(item)
-		console.log(prediction)
-
 
 		$resultsCards.innerHTML = `
       <div class="newsCard" onclick="window.open('${item.url}', '_blank')">
@@ -62,12 +58,12 @@ async function handleUserNewFetch(url) {
 async function handleCardsNewFetch() {
 	$loadingAnimation.style.display = 'block';
 	try {
-		const res = await fetchCardsAPI();
-		const news = await res.json();
+		const news = await fetchCardsAPI();
 		$resultsCards.appendChild(await createCards(news));
-		$loadingAnimation.style.display = 'none';
 	} catch (error) {
 		console.error(`Error loading cards: ${error}`);
+	} finally {
+		$loadingAnimation.style.display = 'none';
 	}
 }
 
@@ -116,11 +112,25 @@ async function loadModels() {
 // Predict using the model
 async function predict(inputData) {
 	try {
-		const tensorKeras = tf.tensor2d([inputData]);
-		const response = await MODEL.predict(tensorKeras).dataSync();
-		console.log(response)
-		let prediction = response[0];
-		return prediction
+		// Create a dataset from the inputData
+		const dataset = tf.data.array([inputData]);
+
+		// Map the predict function over the dataset
+		const predictions = dataset.mapAsync(async (input) => {
+			// Check if input is not empty
+			const tensorKeras = tf.tensor2d([input], [1, input.length]);
+			const response = await MODEL.predict(tensorKeras).dataSync();
+			let prediction = response[0];
+			return prediction;
+		});
+
+		// Get all predictions
+		const predictionArray = await predictions.toArray();
+
+		// Filter out undefined values
+		const validPredictions = predictionArray.filter(prediction => prediction !== undefined);
+
+		return validPredictions;
 	} catch (error) {
 		console.error(`Failed to predict: ${error}`);
 	}
@@ -132,3 +142,4 @@ async function predict(inputData) {
 	createFormGetData(); // Create form event to get data
 	await handleCardsNewFetch();
 })();
+
