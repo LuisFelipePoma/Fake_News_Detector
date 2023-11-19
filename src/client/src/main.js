@@ -32,10 +32,11 @@ async function handleUserNewFetch(url) {
 		const item = await fetchDataFromAPI(url);
 		let prediction = await predict(item.tokens);
 		let classname = undefined
+		console.log(prediction)
 		if (prediction > 0.5) {
-			classname = 'Vera'
-		} else {
 			classname = 'Fake';
+		} else {
+			classname = 'Vera'
 			prediction = 1 - prediction
 		}
 		prediction = Math.round(prediction * 10000) / 100
@@ -74,9 +75,9 @@ async function createCards(news) {
 		let prediction = await predict(item.tokens);
 		let classname = undefined
 		if (prediction > 0.5) {
-			classname = 'Vera'
-		} else {
 			classname = 'Fake';
+		} else {
+			classname = 'Vera'
 			prediction = 1 - prediction
 		}
 		prediction = Math.round(prediction * 10000) / 100
